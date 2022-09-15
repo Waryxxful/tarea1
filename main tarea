@@ -1,0 +1,92 @@
+#include <fstream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+using namespace std;
+
+int main() {
+    struct Aregistro
+{   
+    string nombre;
+    string apellido;
+    int paralelo;
+    int dia;
+    int mes;
+    int anio;
+    string rol;
+    int ppm;
+    float precision;
+};
+
+
+    struct registro
+{
+    int dia;
+    int mes;
+    int anio;
+    char rol[12];
+    int ppm;
+    float precision;
+};
+    Aregistro re[1000];
+    char c;
+    int recorredor = 0;
+    ifstream fp;
+    char rol[12];
+    string  nombre, apellido;
+    int paralelo;
+    fp.open("estudiantes.txt");
+    if (!fp.is_open()){
+        cerr << " el archvio no se pudo abrir " << endl;
+        return 1 ;
+    }
+    while((c= fp.tellg()) != EOF ){ 
+        fp >> rol;
+        fp >> nombre;
+        fp >> apellido;
+        fp >> paralelo;
+        re[recorredor].nombre = nombre;
+        re[recorredor].apellido = apellido;
+        re[recorredor].rol = rol;
+        re[recorredor].paralelo = paralelo;
+        cout << " nombre del estudiante = " << re[recorredor].nombre << " "  << re[recorredor].apellido << " rol del estudiante =  " << re[recorredor].rol << "  paralelo: " << re[recorredor].paralelo << endl;  
+        recorredor = recorredor + 1;
+        };
+
+                                     //lee el binario 
+   registro Re;
+   int i;
+   ifstream in;
+   in.open("registros.dat", ios::binary);
+   if(!in.is_open()){
+    cerr <<  "error no se pudo abrir el archivo registro.dat" << endl;
+    exit(1);
+   }
+   in.read((char*)&i,sizeof(int));
+   cout << "cantidad de registros = " << i << endl;
+
+   while(in.read((char*)&Re,sizeof(registro))){
+
+    cout<<" dia = " << Re.dia << " , mes =  " << Re.mes << " anio = " << Re.anio << " rol = " << Re.rol << " ppm = " << Re.ppm << " precision =  " << Re.precision << endl;
+    };
+    in.close();
+
+/* // la entrada 
+int q;
+int t;
+int d;
+int m;
+int a;
+
+cin >> q;
+cin >> t;
+cin >> d;
+cin >> m;
+cin >> a;
+
+for (int contador = 0; contador <= q ; contador++){
+    
+}
+*/
+return 0;
+ }
